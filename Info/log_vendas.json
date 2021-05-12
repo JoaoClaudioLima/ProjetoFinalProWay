@@ -1,0 +1,37 @@
+{ 
+    "_id" : ObjectId("609ada0b3877b039053de673"), 
+    "user_id" : "1334432435623424213456", 
+    "created_at" : "2021-05-11 16:08:00", 
+    "updated_at" : "2021-05-11 16:19:00", 
+    "products" : [
+        {
+            "id" : 1.0, 
+            "name" : "Harry Potter", 
+            "quantity" : 2.0, 
+            "price" : 10.25
+        }, 
+        {
+            "id" : 2.0, 
+            "name" : "Game of Thrones", 
+            "quantity" : 1.0, 
+            "price" : 4.25
+        }
+    ], 
+    "payment" : {
+        "method" : "credit", 
+        "number" : "****1780"
+    }, 
+    "shipping" : {
+        "value" : 30.0, 
+        "adress" : {
+            "street_adress" : "Rua 7 de setembro", 
+            "city" : "Blumenau", 
+            "province" : "SC", 
+            "region" : "Sul", 
+            "number" : "444", 
+            "adress_code" : "892844"
+        }
+    }, 
+    "status" : "ok", 
+    "message" : "Finished"
+}
