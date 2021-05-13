@@ -11,9 +11,9 @@ def card_validating(card_info: dict) -> dict:
     :return: dict with status and a message.
     """
     card = pycard.Card(number=card_info['number'],
-                       month=card_info['month'],
-                       year=card_info['year'],
-                       cvc=card_info['cvc'])
+                       month=int(card_info['month']),
+                       year=int(card_info['year']),
+                       cvc=int(card_info['cvc']))
 
     if card.is_expired:
         return_status = False
@@ -31,18 +31,17 @@ def card_validating(card_info: dict) -> dict:
 
 
 # # payment_info = dict(number='Abc+',
-# payment_info = dict(number='5162920626931788',
+# payment_info = dict(number='344604579207048',
 # # payment_info = dict(number='0000920626931788',
-#                  month=1,
-#                  year=2029,
-#                  cvc=123)
+#                  month=5,
+#                  year=2021,
+#                  cvc=336)
 #
 # valid = card_validating(card_info=payment_info)
-#
-# print(valid['status'])
+# print(valid)
 
 def confirm_payment(informed_card: dict, method: str, value: float) -> dict:
-    with open("cards.json", "r") as read_file:
+    with open("Utils/payments/cards.json", "r") as read_file:
         data = json.load(read_file)
 
     for card in data['cards']:
@@ -61,7 +60,7 @@ def confirm_payment(informed_card: dict, method: str, value: float) -> dict:
                 else:
                     return dict(status=False, message="insufficient debit balance")
 
-            with open('cards.json', 'w') as outfile:
+            with open('Utils/payments/cards.json', 'w') as outfile:
                 json.dump(data, outfile)
 
             return dict(status=True, message="ok")
@@ -71,8 +70,8 @@ def confirm_payment(informed_card: dict, method: str, value: float) -> dict:
 
 # print(confirm_payment(informed_card={
 #     "_id": "10",
-#     "number": "5162920626931789",
-#     "month": "04",
+#     "number": "344604579207048",
+#     "month": "05",
 #     "year": "2021",
 #     "cvc": 336
-# }, method='credit', value=13000))
+# }, method='debit', value=1))
