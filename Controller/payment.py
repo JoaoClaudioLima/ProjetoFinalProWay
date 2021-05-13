@@ -19,26 +19,31 @@ class Payment(Resource):
                 if card_validation['status']:
                     pay = confirm_payment(informed_card=pay_info['card'], method='credit', value=pay_info['total'])
                     if pay['status']:
+                        pay_info['status'] = "paid"
                         pass
                     else:
                         return gera_response(400, "payment", pay_info, pay['message'])
                 else:
                     return gera_response(400, "payment", pay_info, card_validation['message'])
+
             elif pay_info['method'] == 'debit':
                 card_validation = card_validating(pay_info['card'])
 
                 if card_validation['status']:
                     pay = confirm_payment(informed_card=pay_info['card'], method='debit', value=pay_info['total'])
                     if pay['status']:
+                        pay_info['status'] = "paid"
                         pass
                     else:
                         return gera_response(400, "payment", pay_info, pay['message'])
                 else:
                     return gera_response(400, "payment", pay_info, card_validation['message'])
+
             elif pay_info['method'] == 'bill':
-                pass
+                pay_info['status'] = "waiting bill"
             else:
                 return gera_response(400, "payment", pay_info, "invalid pay method.")
+
         except KeyError:
             return gera_response(400, "payment", pay_info, "pay method not informed.")
 
