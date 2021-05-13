@@ -6,10 +6,20 @@ from Utils.payments.validate_card import card_validating, confirm_payment
 from Utils.payments.bill_generator import generate_bill
 
 
+ROUTE_KEY = "228123976667561672010756977690311737153"
+
+
 class Payment(Resource):
     @staticmethod
     def post():
         pay_info = request.json['payment']
+
+        header = dict(request.headers)
+        try:
+            if header['Key'] != ROUTE_KEY:
+                return gera_response(400, "payment", pay_info, "invalid api-key")
+        except KeyError:
+            return gera_response(500, "payment", pay_info, "internal server error")
 
         pay_info['total'] = calculate_total(items=pay_info['products'], shipping_price=pay_info['shipping_price'])
 
