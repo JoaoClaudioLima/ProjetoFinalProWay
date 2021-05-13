@@ -6,9 +6,9 @@
       "month": "01",
       "year": "2020",
       "cvc": 123,
-      "credit_limit": 20000.00,
-      "credit_used": 16000.00,
-      "debit": 12000.00,
+      "credit_limit": 20000.0,
+      "credit_used": 16000.0,
+      "debit": 12000.0,
       "name": "Carina Garrido Penteado"
     },
     {
@@ -17,7 +17,7 @@
       "month": "01",
       "year": "2028",
       "cvc": 114,
-      "credit_limit": 1000.00,
+      "credit_limit": 1000.0,
       "credit_used": 999.99,
       "debit": 0.01,
       "name": "Celso Lages Maia"
@@ -28,10 +28,10 @@
       "month": "03",
       "year": "2027",
       "cvc": 154,
-      "credit_limit": 200.00,
+      "credit_limit": 200.0,
       "credit_used": 76,
       "debit": 98,
-      "name": "Osvaldo Sítima Mourão"
+      "name": "Osvaldo Sitima Moura"
     },
     {
       "_id": "4",
@@ -42,7 +42,7 @@
       "credit_limit": 49,
       "credit_used": 5,
       "debit": 42,
-      "name": "Elói Cidreira Fitas"
+      "name": "Eloi Cidreira Fitas"
     },
     {
       "_id": "5",
@@ -64,7 +64,7 @@
       "credit_limit": 43,
       "credit_used": 13,
       "debit": 30,
-      "name": "Elielson Patrício Pimentel"
+      "name": "Elielson Patricio Pimentel"
     },
     {
       "_id": "7",
@@ -75,7 +75,7 @@
       "credit_limit": 77,
       "credit_used": 15,
       "debit": 90,
-      "name": "Gianluca Mourão Carvalhosa"
+      "name": "Gianluca Moura Carvalhosa"
     },
     {
       "_id": "8",
@@ -97,7 +97,7 @@
       "credit_limit": 83,
       "credit_used": 3,
       "debit": 48,
-      "name": "Graça Grande Cerqueira"
+      "name": "Grayci Grande Cerqueira"
     },
     {
       "_id": "10",
@@ -105,8 +105,8 @@
       "month": "04",
       "year": "2021",
       "cvc": 336,
-      "credit_limit": 13000.00,
-      "credit_used": 123,
+      "credit_limit": 13000.0,
+      "credit_used": 173,
       "debit": 690,
       "name": "Dominique Calado Cerveira"
     }

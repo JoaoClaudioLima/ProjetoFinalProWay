@@ -1,8 +1,8 @@
 from flask_restful import Resource
-from flask import Flask, jsonify, request
-from Utils.calculate_total import calculate_total
-from Models.payment import Payment
+from flask import request
+from Utils.payments.calculate_total import calculate_total
 from Utils.gera_response import gera_response
+from Utils.payments.validate_card import card_validating, confirm_payment
 
 
 class Payment(Resource):
@@ -12,12 +12,29 @@ class Payment(Resource):
 
         pay_info['total'] = calculate_total(items=pay_info['products'], shipping_price=pay_info['shipping_price'])
 
-        # current_payment = Payment(payment_data=pay_info)
         try:
             if pay_info['method'] == 'credit':
-                pass
+                card_validation = card_validating(pay_info['card'])
+
+                if card_validation['status']:
+                    pay = confirm_payment(informed_card=pay_info['card'], method='credit', value=pay_info['total'])
+                    if pay['status']:
+                        pass
+                    else:
+                        return gera_response(400, "payment", pay_info, pay['message'])
+                else:
+                    return gera_response(400, "payment", pay_info, card_validation['message'])
             elif pay_info['method'] == 'debit':
-                pass
+                card_validation = card_validating(pay_info['card'])
+
+                if card_validation['status']:
+                    pay = confirm_payment(informed_card=pay_info['card'], method='debit', value=pay_info['total'])
+                    if pay['status']:
+                        pass
+                    else:
+                        return gera_response(400, "payment", pay_info, pay['message'])
+                else:
+                    return gera_response(400, "payment", pay_info, card_validation['message'])
             elif pay_info['method'] == 'bill':
                 pass
             else:
