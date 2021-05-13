@@ -13,6 +13,4 @@ def generate_bill(payment_data: dict) -> dict:
 
     return bill
 
-# bil = generate_bill({"total": 34.5})
-# print(bil)
 
