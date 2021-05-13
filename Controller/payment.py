@@ -3,6 +3,7 @@ from flask import request
 from Utils.payments.calculate_total import calculate_total
 from Utils.gera_response import gera_response
 from Utils.payments.validate_card import card_validating, confirm_payment
+from Utils.payments.bill_generator import generate_bill
 
 
 class Payment(Resource):
@@ -41,6 +42,7 @@ class Payment(Resource):
 
             elif pay_info['method'] == 'bill':
                 pay_info['status'] = "waiting bill"
+                pay_info['bill'] = generate_bill(payment_data=pay_info)
             else:
                 return gera_response(400, "payment", pay_info, "invalid pay method.")
 
