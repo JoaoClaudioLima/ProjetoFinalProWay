@@ -1,4 +1,3 @@
-# pip install python-barcode
 from barcode import Code128
 
 

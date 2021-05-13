@@ -1,4 +1,3 @@
-#pip install captain-pycard
 import pycard
 import json
 
