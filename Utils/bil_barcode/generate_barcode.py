@@ -1,3 +1,4 @@
+# pip install python-boleto
 from barcode import Code128
 
 
