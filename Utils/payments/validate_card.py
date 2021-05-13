@@ -29,16 +29,6 @@ def card_validating(card_info: dict) -> dict:
     return dict(status=return_status, message=return_msg)
 
 
-# # payment_info = dict(number='Abc+',
-# payment_info = dict(number='344604579207048',
-# # payment_info = dict(number='0000920626931788',
-#                  month=5,
-#                  year=2021,
-#                  cvc=336)
-#
-# valid = card_validating(card_info=payment_info)
-# print(valid)
-
 def confirm_payment(informed_card: dict, method: str, value: float) -> dict:
     with open("Utils/payments/cards.json", "r") as read_file:
         data = json.load(read_file)
@@ -65,12 +55,3 @@ def confirm_payment(informed_card: dict, method: str, value: float) -> dict:
             return dict(status=True, message="ok")
 
     return dict(status=False, message="operation not allowed")
-
-
-# print(confirm_payment(informed_card={
-#     "_id": "10",
-#     "number": "344604579207048",
-#     "month": "05",
-#     "year": "2021",
-#     "cvc": 336
-# }, method='debit', value=1))
