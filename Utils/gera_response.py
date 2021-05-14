@@ -4,16 +4,15 @@ import json
 
 def gera_response(status, content_index: str, content: dict, message=None):
     """
-    Exemplos:
-    1# return gera_response(200, "user", dict_values, "ok")
-    2# return gera_response(400, "users", {}, "invalid key")
+    Function that generate a flask Response with status, a body json
 
     :param status: HTTP Status
     :param content_index: content name
     :param content: dict with data
     :param message: "ok", "error..."
-    :return: Response
+    :return: flask Response
     """
+
     body = {content_index: content}
     if message:
         body["message"] = message

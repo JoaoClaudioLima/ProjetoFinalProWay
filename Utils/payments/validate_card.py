@@ -30,6 +30,16 @@ def card_validating(card_info: dict) -> dict:
 
 
 def confirm_payment(informed_card: dict, method: str, value: float) -> dict:
+    """
+    function that finish the payment, it validates the card info with a json archive,
+    process the payment and returns a dict.
+
+    :param informed_card: card dict with number, month, year and cvc
+    :param method: payment method
+    :param value: cart value
+    :return: returns dict a boolean status and a string message
+    """
+
     with open("Utils/payments/cards.json", "r") as read_file:
         data = json.load(read_file)
 
@@ -38,11 +48,13 @@ def confirm_payment(informed_card: dict, method: str, value: float) -> dict:
                 card['month'] == informed_card['month'] and \
                 card['year'] == informed_card['year'] and \
                 card['cvc'] == informed_card['cvc']:
+
             if method == 'credit':
                 if card['credit_used'] + value <= card['credit_limit']:
                     card['credit_used'] = card['credit_used'] + value
                 else:
                     return dict(status=False, message="insufficient credit balance")
+
             elif method == 'debit':
                 if card['debit'] >= value:
                     card['debit'] = card['debit'] - value
@@ -51,7 +63,6 @@ def confirm_payment(informed_card: dict, method: str, value: float) -> dict:
 
             with open('Utils/payments/cards.json', 'w') as outfile:
                 json.dump(data, outfile)
-
             return dict(status=True, message="ok")
 
     return dict(status=False, message="operation not allowed")
