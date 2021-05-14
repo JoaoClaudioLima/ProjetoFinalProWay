@@ -8,8 +8,32 @@ from Utils.payments.bill_generator import generate_bill
 
 ROUTE_KEY = "228123976667561672010756977690311737153"
 
+def card_payment(pay_info: dict):
+    """
+    Méthod that validates the card and does the debit/credit operation and returns a response
+
+    :param pay_info: Data from the payment
+    :return: Response
+    """
+    card_validation = card_validating(pay_info['card'])
+
+    if not card_validation['status']:
+        return gera_response(400, "payment", pay_info, card_validation['message'])
+
+    pay = confirm_payment(informed_card=pay_info['card'], method=pay_info['method'], value=pay_info['total'])
+    if pay['status']:
+        pay_info['status'] = "paid"
+        pass
+    else:
+        return gera_response(400, "payment", pay_info, pay['message'])
+
 
 class Payment(Resource):
+    """
+    This Route checks the payment option and concludes the checkout process as a whole. Verifing if the operation is
+    a valid one and generating the necessary logs.
+    """
+
     @staticmethod
     def post():
         pay_info = request.json['payment']
@@ -24,37 +48,15 @@ class Payment(Resource):
         pay_info['total'] = calculate_total(items=pay_info['products'], shipping_price=pay_info['shipping_price'])
 
         try:
-            if pay_info['method'] == 'credit':
-                card_validation = card_validating(pay_info['card'])
+            if pay_info['method'] not in ["credit", "debit", "bill"]:
+                return gera_response(400, "payment", pay_info, "invalid pay method.")
 
-                if card_validation['status']:
-                    pay = confirm_payment(informed_card=pay_info['card'], method='credit', value=pay_info['total'])
-                    if pay['status']:
-                        pay_info['status'] = "paid"
-                        pass
-                    else:
-                        return gera_response(400, "payment", pay_info, pay['message'])
-                else:
-                    return gera_response(400, "payment", pay_info, card_validation['message'])
-
-            elif pay_info['method'] == 'debit':
-                card_validation = card_validating(pay_info['card'])
-
-                if card_validation['status']:
-                    pay = confirm_payment(informed_card=pay_info['card'], method='debit', value=pay_info['total'])
-                    if pay['status']:
-                        pay_info['status'] = "paid"
-                        pass
-                    else:
-                        return gera_response(400, "payment", pay_info, pay['message'])
-                else:
-                    return gera_response(400, "payment", pay_info, card_validation['message'])
+            elif pay_info['method'] in ["credit", "debit"]:
+                card_payment(pay_info=pay_info)
 
             elif pay_info['method'] == 'bill':
                 pay_info['status'] = "waiting bill"
                 pay_info['bill'] = generate_bill(payment_data=pay_info)
-            else:
-                return gera_response(400, "payment", pay_info, "invalid pay method.")
 
         except KeyError:
             return gera_response(400, "payment", pay_info, "pay method not informed.")
