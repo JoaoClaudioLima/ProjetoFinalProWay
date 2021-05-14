@@ -1,0 +1,1 @@
+python -m pytest --cov=ProjetoFinalProWay --cov-report=html
