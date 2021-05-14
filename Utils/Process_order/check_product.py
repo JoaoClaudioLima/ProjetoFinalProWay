@@ -1,19 +1,17 @@
-from flask import Flask, redirect, url_for
-import generate_log
+from Utils.Process_order.get_product import GetProduct
+
 
 class CheckProduct:
 
-    def check_products(self):#, products_order:dict):
-        # products = redirect(url_for("mongodb://localhost:27017/ROUTE", keys=x, obj=products_order)) ATUAL
-        products = dict(status=True, products=[dict(id="1", price="10.25", format="physicst"), dict(id="2", price="10.25", format="digital")], total=20.50)#TEST
-        # if "physicist" in str(products["products"]):
-        #     return products
-        #     print("physicist" in str(products["products"]))
-        if products["status"]:
+    @staticmethod
+    def check_products(products_order: dict):
+        products = GetProduct().get_product(products_order)
+
+        if "physical" in str(products["products"]):
+            products.update(physical=True)
+            return products
+        elif products["status"]:
+            products.update(physical=False)
             return products
 
-        return dict(status=False, message="Product out of stock", products=products["products"])
-
-
-c = CheckProduct()
-print(c.check_products())
+        return dict(status=False, message="Product out of stock.", products=products["products"])

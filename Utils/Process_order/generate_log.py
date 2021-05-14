@@ -20,7 +20,3 @@ class GenerateLog:
     def get_log():
         result = LogOrders().get_log()
         return result
-
-
-g = GenerateLog()
-g.generate_log("12")
