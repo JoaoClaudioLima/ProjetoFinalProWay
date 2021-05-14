@@ -1,4 +1,0 @@
-captain-pycard
-flask
-flask-restfull
-python-barcode
