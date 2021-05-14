@@ -36,7 +36,7 @@ class Payment(Resource):
 
     @staticmethod
     def post():
-        pay_info = request.json['payment']
+        pay_info = request.json['checkout']
 
         header = dict(request.headers)
         try:
