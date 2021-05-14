@@ -16,11 +16,11 @@
 		"user_id": "9123389123879172378132",
 		"address": {
 			"address_street": "Rua 7 de Setembro",
-			"adress_number": 666,
-			"adress_neightbourhood": "Centro",
-			"adress_postal_code": "888888",
-			"adress_city": "Blumenau",
-			"adress_state": "SC"
+			"address_number": 666,
+			"address_neighbourhood": "Centro",
+			"address_postal_code": "888888",
+			"address_city": "Blumenau",
+			"address_state": "SC"
 		}
 	},
 	"method": "bill"
