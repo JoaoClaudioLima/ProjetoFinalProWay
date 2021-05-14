@@ -28,8 +28,21 @@ class TestValidateCard(TestCase):
 
     def test_confirm_payment_works(self):
         read_file = json.dumps({
-            "cards": {"number": 55, "month": "05", "year": "2021", "cvc": 336, "credit_limit": 500, "credit_used": 0,
-                      "debit": 400}})
+            "cards": [{"number": 55,
+                      "month": "05",
+                      "year": "2021",
+                      "cvc": 336,
+                      "credit_limit": 500,
+                      "credit_used": 0,
+                      "debit": 400},
+                      {"number": 44,
+                       "month": "04",
+                       "year": "2021",
+                       "cvc": 336,
+                       "credit_limit": 500,
+                       "credit_used": 0,
+                       "debit": 400}]
+        })
 
         mock_open = mock.mock_open(read_data=read_file)
         with mock.patch("Utils.payments.validate_card.open", mock_open):
@@ -37,7 +50,16 @@ class TestValidateCard(TestCase):
                              month="05",
                              year="2021",
                              cvc="336")
-
-            self.assertEqual(0, confirm_payment(informed_card=test_card,
+            expected_return = {'message': 'operation not allowed', 'status': False}
+            self.assertEqual(expected_return, confirm_payment(informed_card=test_card,
                                                 method='credit',
                                                 value=999))
+
+            test_card = dict(number="44",
+                             month="04",
+                             year="2021",
+                             cvc="336")
+            expected_return = 0
+            self.assertEqual(expected_return, confirm_payment(informed_card=test_card,
+                                                              method='credit',
+                                                              value=1))
