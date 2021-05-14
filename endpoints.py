@@ -7,6 +7,6 @@ def init_api(app):
     api = Api()
 
     api.add_resource(HealthCheck, "/health-check")
-    api.add_resource(Payment, "/payment")
+    api.add_resource(Payment, "/checkout")
 
     api.init_app(app)
