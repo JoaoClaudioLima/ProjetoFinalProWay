@@ -6,7 +6,7 @@ from bson import ObjectId
 class GenerateLog:
     date_time_at = datetime.today()
 
-    def generate_log(self, user_id: str) -> str:
+    def generate_log(self, order: dict) -> str:
         """
         The method creates a log with USER's Order data to be inserted into a LOG.
         The LOG is a table in our database.
@@ -14,7 +14,7 @@ class GenerateLog:
         :return: Returns the data inserted into the LOG.
         """
 
-        log_order = dict(user_id=user_id, created_at=self.date_time_at)
+        log_order = dict(order=order, created_at=self.date_time_at)
         result = LogOrders().post(log_order)
         return result
 
