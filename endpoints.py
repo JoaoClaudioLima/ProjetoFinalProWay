@@ -1,6 +1,7 @@
 from flask_restful import Api
 from Controller.health_check import HealthCheck
 from Controller.payment import Payment
+from Controller.shipment import Shipment
 
 
 def init_api(app):
@@ -15,5 +16,6 @@ def init_api(app):
 
     api.add_resource(HealthCheck, "/health-check")
     api.add_resource(Payment, "/checkout")
+    api.add_resource(Shipment, "/shipment")
 
     api.init_app(app)
