@@ -9,3 +9,4 @@ omit =
     Utils\__init__.py
     Utils\payments\__init__.py
     Utils\bil_barcode\__init__.py
+    Utils\shipment\__init__.py
