@@ -13,8 +13,8 @@ class Shipment(Resource):
 
     @staticmethod
     def post():
-        address = {"checkout": {"user": {"address": {}}}}
-        address['checkout']['user']['address'] = request.json['address']
+        address = {"user": {"address": {}}}
+        address['user']['address'] = request.json['address']
         header = dict(request.headers)
         try:
             if header['Key'] != ROUTE_KEY:
