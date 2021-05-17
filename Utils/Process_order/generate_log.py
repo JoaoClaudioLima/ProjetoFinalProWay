@@ -15,7 +15,7 @@ class GenerateLog:
         """
 
         log_order = dict(user_id=user_id, created_at=self.date_time_at)
-        result = LogOrders().insert_log(log_order)
+        result = LogOrders().post(log_order)
         return result
 
     def update_log(self, id_order: ObjectId, order_error: dict) -> dict:
@@ -27,7 +27,7 @@ class GenerateLog:
         :return: Returns the data updated into the LOG
         """
         order_error.update(dict(updated_at=self.date_time_at))
-        result = LogOrders().update_log(order_error, id_order)
+        result = LogOrders().put(order_error, id_order)
         return result
 
     @staticmethod
@@ -36,5 +36,5 @@ class GenerateLog:
         The method sends the entire LOG from the database.
         :return:
         """
-        result = LogOrders().get_log()
+        result = LogOrders().get()
         return result
