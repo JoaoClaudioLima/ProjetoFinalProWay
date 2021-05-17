@@ -2,7 +2,15 @@ import requests
 
 
 class GetProduct:
-    # products = dict(products=[dict(id="1", price="10.25", format="physical"), dict(id="2", price="10.25", format="digital")], total=20.50)#TEST
+
     def get_product(self, product_order: dict) -> dict:
-        products = requests.get('http://127.0.0.1:5000/read/', params=product_order)
-        return dict(products)
+        """
+        The method makes a request to the Product API by the URL and gets the product order.
+        :param product_order: Data from the requested API.
+        :return: A dictionary of products with its content.
+        """
+        try:
+            products = requests.get('http://127.0.0.1:5000/read/', params=product_order)
+            return dict(products)
+        except Exception as Error:
+            return dict(status=False, message=Error.args)

@@ -11,7 +11,6 @@ class LogOrders(Resource):
         try:
             id_order = LogConnectionMongo().log.insert_one(log_order).inserted_id
             return dict(status=True, message="OK", id_order=str(id_order))
-
         except Exception as Error:
             return dict(status=False, message=Error.args)
 
@@ -21,7 +20,6 @@ class LogOrders(Resource):
             df = DataFrame(LogConnectionMongo().log.find())
             df = df.astype(str)
             return df.to_json(orient="records")
-
         except Exception as Error:
             return dict(status=False, message=Error.args)
 
@@ -30,6 +28,5 @@ class LogOrders(Resource):
         try:
             id_order = LogConnectionMongo().log.update_one({"_id": id_order}, {"$set": log_error})
             return dict(id_order=str(id_order))
-
         except Exception as Error:
             return dict(status=False, message=Error.args)

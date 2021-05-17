@@ -3,15 +3,17 @@ from Utils.Process_order.get_product import GetProduct
 
 class CheckProduct:
 
-    @staticmethod
     def check_products(products_order: dict):
-        products = GetProduct().get_product(products_order)
+        """
+        The method searches into the Product API if there are items available into the stock.
+        If there aren't enough items the method returns an error and a massage.
+        :param products_order: A dictionary of the order and its content.
 
-        if "physical" in str(products["products"]):
-            products.update(physical=True)
-            return products
-        elif products["status"]:
-            products.update(physical=False)
+        :return: A dictionary with the available products.
+        """
+
+        products = GetProduct().get_product(products_order)
+        if products["products"]["stock"]:
             return products
 
         return dict(status=False, message="Product out of stock.", products=products["products"])
