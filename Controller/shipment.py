@@ -3,7 +3,6 @@ from flask import request
 from Utils.shipment.calculate_shipment import calculate_shipments
 from Utils.gera_response import gera_response
 
-
 ROUTE_KEY = "85906256179484450164927311732859959817"
 
 
@@ -11,9 +10,11 @@ class Shipment(Resource):
     """
     This Route receives the user info and returns the value of the shipment
     """
+
     @staticmethod
     def post():
-        address = request.json['address']
+        address = {"checkout": {"user": {"address": {}}}}
+        address['checkout']['user']['address'] = request.json['address']
         header = dict(request.headers)
         try:
             if header['Key'] != ROUTE_KEY:

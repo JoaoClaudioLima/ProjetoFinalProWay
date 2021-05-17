@@ -14,6 +14,6 @@ def calculate_shipments(address: dict) -> float:
     except Exception as error:
         return error.args[0]
     for state in data:
-        if state == address['address_state']:
+        if state == address['checkout']['user']['address']['address_state']:
             shipping_value = data[state]
             return shipping_value
