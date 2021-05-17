@@ -1,7 +1,7 @@
 import json
 
 
-def calculate_shipments(address: dict) -> float:
+def calculate_shipment_value(address: dict) -> float:
     """
     Calculate shipment based on JSON file
     :param address: same format as "Info/retorno_front_cartoes.json"
