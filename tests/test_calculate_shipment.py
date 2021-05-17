@@ -8,7 +8,7 @@ class TestCalculateShipment(TestCase):
         read_return = """{"RO": 50.0, "AC": 5000.0, "RM": 50.0}"""
         with mock.patch("Utils.shipment.calculate_shipment.open", mock.mock_open(read_data=read_return)):
 
-            dic = dict(checkout=dict(user=dict(address=dict(address_state="RO"))))
+            dic = dict(user=dict(address=dict(address_state="RO")))
             value = 50.0
             self.assertEqual(calculate_shipment_value(dic), value)
 

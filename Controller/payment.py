@@ -4,6 +4,7 @@ from Utils.payments.calculate_total import calculate_total
 from Utils.gera_response import gera_response
 from Utils.payments.validate_card import card_validating, confirm_payment
 from Utils.payments.bill_generator import generate_bill
+from Utils.shipment.calculate_shipment import calculate_shipment_value
 
 
 ROUTE_KEY = "228123976667561672010756977690311737153"
@@ -44,7 +45,9 @@ class Payment(Resource):
                 return gera_response(400, "payment", pay_info, "invalid api-key")
         except KeyError:
             return gera_response(500, "payment", pay_info, "internal server error")
-
+        
+        pay_info['shipping_price'] = calculate_shipment_value(pay_info)
+        
         pay_info['total'] = calculate_total(items=pay_info['products'], shipping_price=pay_info['shipping_price'])
 
         try:
