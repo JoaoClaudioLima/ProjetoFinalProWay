@@ -30,11 +30,11 @@ class TestOrder(TestCase):
 
     def test_ckeck_product(self):
         with mock.patch("Utils.Process_order.get_product.GetProduct.get_product", create=True) as mock_get_product:
-            mock_get_product.return_value = dict(products=dict(estoque=True))
+            mock_get_product.return_value = dict(products=dict(stock=True))
             products = CheckProduct().check_products()
-            self.assertTrue(products["products"]["estoque"])
+            self.assertTrue(products["products"]["stock"])
 
         with mock.patch("Utils.Process_order.get_product.GetProduct.get_product", create=True) as mock_get_product:
-            mock_get_product.return_value = dict(products=dict(estoque=False))
+            mock_get_product.return_value = dict(products=dict(stock=False))
             products = CheckProduct().check_products()
-            self.assertEqual(products, {'status': False, 'message': 'Product out of stock.', 'products': {'estoque': False}})
+            self.assertEqual(products, {'status': False, 'message': 'Product out of stock.', 'products': {'stock': False}})
