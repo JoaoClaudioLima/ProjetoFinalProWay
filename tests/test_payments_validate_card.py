@@ -26,7 +26,6 @@ class TestValidateCard(TestCase):
         expected_return = {'message': 'Card is expired', 'status': False}
         self.assertEqual(expected_return, card_validating(card_info=test_card))
 
-    # @mock.patch("Utils.payments.validate_card.data")
     def test_confirm_payment_works(self):
         read_file = json.dumps({
             "cards": [{"number": "34",
