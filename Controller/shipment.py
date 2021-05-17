@@ -25,7 +25,7 @@ class Shipment(Resource):
         try:
             address['shipping_price'] = calculate_shipment_value(address=address)
         except KeyError:
-            return gera_response(400, "shipping", address, "address not informed.")
+            return gera_response(400, "shipping", address, "address-state not informed.")
 
         if address['shipping_price'] is None:
             return gera_response(400, "shipping", address, "invalid address.")
