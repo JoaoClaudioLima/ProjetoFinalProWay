@@ -18,16 +18,15 @@ class GenerateLog:
         result = LogOrders().post(log_order)
         return result
 
-    def update_log(self, id_order: ObjectId, order_error: dict) -> dict:
+    def update_log(self, id_order: ObjectId, order: dict) -> dict:
         """
         The method updates the log with the moment of any action performed by the USER.
-        The Update method will register the errors that has occured during the process.
+        :return: Returns the data updated intorors that has occured during the process.
         :param id_order: The ID from the stated Order.
-        :param order_error: The Code and Message from the error.
-        :return: Returns the data updated into the LOG
+        :param order: The Code and Messa the LOG
         """
-        order_error.update(dict(updated_at=self.date_time_at))
-        result = LogOrders().put(order_error, id_order)
+        order.update(dict(updated_at=self.date_time_at))
+        result = LogOrders().put(order, id_order)
         return result
 
     @staticmethod
