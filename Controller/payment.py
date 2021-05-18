@@ -31,11 +31,12 @@ def card_payment(log_order: dict, pay_info: dict):
     pay = confirm_payment(informed_card=pay_info['card'], method=pay_info['method'], value=pay_info['total'])
     if pay['status']:
         pay_info['status'] = "paid"
+        pay_info['message'] = "ok"
         pass
     else:
+        pay_info['status'] = "not paid"
         pay_info['message'] = pay['message']
         log.update_log(id_order=ObjectId(log_order['id_order']), order=pay_info)
-        print(pay)
         return gera_response(400, "payment", pay_info, pay_info['message'])
 
 
@@ -79,12 +80,12 @@ class Payment(Resource):
             elif pay_info['method'] == 'bill':
                 pay_info['status'] = "waiting bill"
                 pay_info['bill'] = generate_bill(payment_data=pay_info)
+                pay_info['message'] = "ok"
 
         except KeyError:
             pay_info['message'] = "pay method not informed."
             log.update_log(id_order=ObjectId(log_order['id_order']), order=pay_info)
             return gera_response(400, "payment", pay_info, pay_info['message'])
 
-        pay_info['message'] = "ok"
         log.update_log(id_order=ObjectId(log_order['id_order']), order=pay_info)
         return gera_response(200, "payment", pay_info, pay_info['message'])
