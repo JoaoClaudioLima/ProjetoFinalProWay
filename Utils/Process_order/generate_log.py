@@ -25,7 +25,6 @@ class GenerateLog:
         :param id_order: The ID from the stated Order.
         :param order: The Code and Messa the LOG
         """
-        order.update(dict(updated_at=str(self.date_time_at)))
         result = LogOrders().put(log=order, id_order=id_order, updated_at=str(self.date_time_at))
         return result
 

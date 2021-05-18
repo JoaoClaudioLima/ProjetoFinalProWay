@@ -12,24 +12,31 @@ from Utils.Process_order.generate_log import GenerateLog
 ROUTE_KEY = "228123976667561672010756977690311737153"
 
 
-def card_payment(pay_info: dict):
+def card_payment(log_order: dict, pay_info: dict):
     """
     Méthod that validates the card and does the debit/credit operation and returns a response
 
     :param pay_info: Data from the payment
+    :param log_order: Dict with database order info
     :return: Response
     """
     card_validation = card_validating(pay_info['card'])
+    log = GenerateLog()
 
     if not card_validation['status']:
-        return gera_response(400, "payment", pay_info, card_validation['message'])
+        pay_info['message'] = card_validation['message']
+        log.update_log(id_order=ObjectId(log_order['id_order']), order=pay_info)
+        return gera_response(400, "payment", pay_info, pay_info['message'])
 
     pay = confirm_payment(informed_card=pay_info['card'], method=pay_info['method'], value=pay_info['total'])
     if pay['status']:
         pay_info['status'] = "paid"
         pass
     else:
-        return gera_response(400, "payment", pay_info, pay['message'])
+        pay_info['message'] = pay['message']
+        log.update_log(id_order=ObjectId(log_order['id_order']), order=pay_info)
+        print(pay)
+        return gera_response(400, "payment", pay_info, pay_info['message'])
 
 
 class Payment(Resource):
@@ -67,7 +74,7 @@ class Payment(Resource):
                 return gera_response(400, "payment", pay_info, pay_info['message'])
 
             elif pay_info['method'] in ["credit", "debit"]:
-                card_payment(pay_info=pay_info)
+                card_payment(log_order=log_order, pay_info=pay_info)
 
             elif pay_info['method'] == 'bill':
                 pay_info['status'] = "waiting bill"

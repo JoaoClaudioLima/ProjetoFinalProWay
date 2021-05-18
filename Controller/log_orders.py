@@ -45,8 +45,8 @@ class LogOrders(Resource):
         If the update fails the return is an Exception with status and path message.
         """
         try:
-            id_order = LogConnectionMongo().log.update_one({"_id": id_order}, {"$set": {"order": log},
-                                                                               "updated_at": updated_at})
+            id_order = LogConnectionMongo().log.update_one({"_id": id_order}, {"$set": {"order": log,
+                                                                               "updated_at": updated_at}})
             return dict(id_order=str(id_order))
         except Exception as Error:
             return dict(status=False, message=Error.args)
