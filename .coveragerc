@@ -1,6 +1,7 @@
 [run]
 omit =
     Models\__init__.py
+    Models\logDb.py
     Controller/*
     main.py
     endpoints.py

@@ -15,7 +15,7 @@ class GenerateLog:
         """
 
         log_order = dict(order=order, created_at=self.date_time_at)
-        result = LogOrders().post(log_order)
+        result = LogOrders().post(log_order=log_order)
         return result
 
     def update_log(self, id_order: ObjectId, order: dict) -> dict:
@@ -25,8 +25,7 @@ class GenerateLog:
         :param id_order: The ID from the stated Order.
         :param order: The Code and Messa the LOG
         """
-        order.update(dict(updated_at=self.date_time_at))
-        result = LogOrders().put(order, id_order)
+        result = LogOrders().put(log=order, id_order=id_order, updated_at=str(self.date_time_at))
         return result
 
     @staticmethod

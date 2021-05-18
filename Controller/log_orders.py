@@ -35,16 +35,18 @@ class LogOrders(Resource):
             return dict(status=False, message=Error.args)
 
     @staticmethod
-    def put(log_error: dict, id_order: ObjectId):
+    def put(log: dict, id_order: ObjectId, updated_at: str):
         """
         The method updates the LOG in our database with the order data. Every action and any error is registered.
-        :param log_error: It's the data from error messages and where it has stopped.
+        :param log: It's the data from error messages and where it has stopped.
         :param id_order: The ID number from the Order.
+        :param updated_at: update time
         :return: Returns the ID that has been updated.
         If the update fails the return is an Exception with status and path message.
         """
         try:
-            id_order = LogConnectionMongo().log.update_one({"_id": id_order}, {"$set": log_error})
+            id_order = LogConnectionMongo().log.update_one({"_id": id_order}, {"$set": {"order": log,
+                                                                               "updated_at": updated_at}})
             return dict(id_order=str(id_order))
         except Exception as Error:
             return dict(status=False, message=Error.args)

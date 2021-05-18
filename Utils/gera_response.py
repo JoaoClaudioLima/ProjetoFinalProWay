@@ -15,6 +15,6 @@ def gera_response(status, content_index: str, content: dict, message=None):
 
     body = {content_index: content}
     if message:
-        body["message"] = message
+        body["log_message"] = message
 
     return Response(json.dumps(body), status=status, mimetype="application/json")

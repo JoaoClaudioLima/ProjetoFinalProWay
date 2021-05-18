@@ -1,3 +1,4 @@
+from bson import ObjectId
 from flask_restful import Resource
 from flask import request
 from Utils.payments.calculate_total import calculate_total
@@ -5,28 +6,38 @@ from Utils.gera_response import gera_response
 from Utils.payments.validate_card import card_validating, confirm_payment
 from Utils.payments.bill_generator import generate_bill
 from Utils.shipment.calculate_shipment import calculate_shipment_value
+from Utils.Process_order.generate_log import GenerateLog
 
 
 ROUTE_KEY = "228123976667561672010756977690311737153"
 
-def card_payment(pay_info: dict):
+
+def card_payment(log_order: dict, pay_info: dict):
     """
     Méthod that validates the card and does the debit/credit operation and returns a response
 
     :param pay_info: Data from the payment
+    :param log_order: Dict with database order info
     :return: Response
     """
     card_validation = card_validating(pay_info['card'])
+    log = GenerateLog()
 
     if not card_validation['status']:
-        return gera_response(400, "payment", pay_info, card_validation['message'])
+        pay_info['message'] = card_validation['message']
+        log.update_log(id_order=ObjectId(log_order['id_order']), order=pay_info)
+        return gera_response(400, "payment", pay_info, pay_info['message'])
 
     pay = confirm_payment(informed_card=pay_info['card'], method=pay_info['method'], value=pay_info['total'])
     if pay['status']:
         pay_info['status'] = "paid"
+        pay_info['message'] = "ok"
         pass
     else:
-        return gera_response(400, "payment", pay_info, pay['message'])
+        pay_info['status'] = "not paid"
+        pay_info['message'] = pay['message']
+        log.update_log(id_order=ObjectId(log_order['id_order']), order=pay_info)
+        return gera_response(400, "payment", pay_info, pay_info['message'])
 
 
 class Payment(Resource):
@@ -50,18 +61,31 @@ class Payment(Resource):
         
         pay_info['total'] = calculate_total(items=pay_info['products'], shipping_price=pay_info['shipping_price'])
 
+        log = GenerateLog()
+        log_order = log.generate_log(order=pay_info)
+
+        if log_order['status'] is False:
+            pay_info['message'] = log_order['message']
+            gera_response(500, "payment", pay_info, pay_info['message'])
+
         try:
             if pay_info['method'] not in ["credit", "debit", "bill"]:
-                return gera_response(400, "payment", pay_info, "invalid pay method.")
+                pay_info['message'] = "invalid pay method."
+                log.update_log(id_order=ObjectId(log_order['id_order']), order=pay_info)
+                return gera_response(400, "payment", pay_info, pay_info['message'])
 
             elif pay_info['method'] in ["credit", "debit"]:
-                card_payment(pay_info=pay_info)
+                card_payment(log_order=log_order, pay_info=pay_info)
 
             elif pay_info['method'] == 'bill':
                 pay_info['status'] = "waiting bill"
                 pay_info['bill'] = generate_bill(payment_data=pay_info)
+                pay_info['message'] = "ok"
 
         except KeyError:
-            return gera_response(400, "payment", pay_info, "pay method not informed.")
+            pay_info['message'] = "pay method not informed."
+            log.update_log(id_order=ObjectId(log_order['id_order']), order=pay_info)
+            return gera_response(400, "payment", pay_info, pay_info['message'])
 
-        return gera_response(200, "payment", pay_info, "ok")
+        log.update_log(id_order=ObjectId(log_order['id_order']), order=pay_info)
+        return gera_response(200, "payment", pay_info, pay_info['message'])
