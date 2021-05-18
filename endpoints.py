@@ -17,7 +17,7 @@ def init_api(app):
     api = Api()
 
     api.add_resource(HealthCheck, "/health-check")
-    api.add_resource(LogOrders.get_log(), "/log-orders")
+    api.add_resource(LogOrders, "/log-orders")
     api.add_resource(Payment, "/checkout")
     api.add_resource(Shipment, "/shipment")
 
