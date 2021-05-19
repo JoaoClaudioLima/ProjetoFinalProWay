@@ -1,4 +1,8 @@
 captain-pycard
 flask
-flask-restfull
+flask-restful
 python-barcode
+pymongo
+pandas
+requests
+pytest
