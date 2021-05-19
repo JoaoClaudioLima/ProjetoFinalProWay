@@ -4,7 +4,6 @@ from Controller.payment import Payment
 from Controller.shipment import Shipment
 from Utils.Process_order.generate_log import GetLog
 
-
 def init_api(app):
     """
     Function that executes on the initiation of the API and
