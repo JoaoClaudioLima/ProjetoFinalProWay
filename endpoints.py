@@ -5,7 +5,6 @@ from Controller.payment import Payment
 from Controller.shipment import Shipment
 
 
-
 def init_api(app):
     """
     Function that executes on the initiation of the API and
