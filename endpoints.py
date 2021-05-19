@@ -1,9 +1,8 @@
 from Controller.health_check import HealthCheck
-from Controller.log_orders import LogOrders
 from flask_restful import Api
 from Controller.payment import Payment
 from Controller.shipment import Shipment
-
+from Utils.Process_order.generate_log import GetLog
 
 
 def init_api(app):
@@ -17,7 +16,7 @@ def init_api(app):
     api = Api()
 
     api.add_resource(HealthCheck, "/health-check")
-    api.add_resource(LogOrders, "/log-orders")
+    api.add_resource(GetLog, "/log-orders")
     api.add_resource(Payment, "/checkout")
     api.add_resource(Shipment, "/shipment")
 

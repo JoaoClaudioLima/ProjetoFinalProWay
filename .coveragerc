@@ -12,4 +12,3 @@ omit =
     Utils\bil_barcode\__init__.py
     Utils\shipment\__init__.py
     Utils\Process_order\__init__.py
-    Utils\Process_order\generate_log.py
