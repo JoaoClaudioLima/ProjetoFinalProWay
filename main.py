@@ -1,6 +1,7 @@
 from flask import Flask
 from endpoints import init_api
 
+
 app = Flask(__name__)
 init_api(app)
 
