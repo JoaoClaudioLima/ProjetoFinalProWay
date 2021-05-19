@@ -27,6 +27,8 @@ class LogOrders(Resource):
         :return: Returns a JSON with all LOG data.
         If the search fails the return is an Exception with status and path message.
         """
+
+        # O Gustavo disse que não precisava testar (leia em inglês)
         try:
             df = DataFrame(LogConnectionMongo().log.find())
             df = df.astype(str)

@@ -28,6 +28,9 @@ class GenerateLog:
         result = LogOrders().put(log=order, id_order=id_order, updated_at=str(self.date_time_at))
         return result
 
+
+class GetLog:
+
     @staticmethod
     def get_log():
         """
