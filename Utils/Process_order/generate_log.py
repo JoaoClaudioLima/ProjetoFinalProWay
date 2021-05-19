@@ -1,4 +1,5 @@
 from datetime import datetime
+from flask_restful import Resource
 from Controller.log_orders import LogOrders
 from bson import ObjectId
 
@@ -29,7 +30,7 @@ class GenerateLog:
         return result
 
 
-class GetLog:
+class GetLog(Resource):
 
     @staticmethod
     def get_log():
