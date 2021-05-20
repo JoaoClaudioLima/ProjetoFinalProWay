@@ -32,7 +32,7 @@ class GenerateLog:
 class GetLog(Resource):
 
     @staticmethod
-    def get_log():
+    def get():
         """
         The method sends the entire LOG from the database.
         :return:
