@@ -5,7 +5,6 @@ from bson import ObjectId
 
 
 class GenerateLog:
-    date_time_at = datetime.today()
 
     def generate_log(self, order: dict) -> str:
         """
@@ -15,7 +14,7 @@ class GenerateLog:
         :return: Returns the data inserted into the LOG.
         """
 
-        log_order = dict(order=order, created_at=self.date_time_at)
+        log_order = dict(order=order, created_at=datetime.today())
         result = LogOrders().post(log_order=log_order)
         return result
 
@@ -26,7 +25,7 @@ class GenerateLog:
         :param id_order: The ID from the stated Order.
         :param order: The Code and Messa the LOG
         """
-        result = LogOrders().put(log=order, id_order=id_order, updated_at=str(self.date_time_at))
+        result = LogOrders().put(log=order, id_order=id_order, updated_at=datetime.today())
         return result
 
 
@@ -40,3 +39,4 @@ class GetLog(Resource):
         """
         result = LogOrders().get()
         return result
+
