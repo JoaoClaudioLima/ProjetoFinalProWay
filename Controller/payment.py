@@ -48,8 +48,10 @@ class Payment(Resource):
 
     @staticmethod
     def post():
+        #Recebe request do front
         pay_info = request.json['checkout']
 
+        #Verifica se a chave que o front mandou está correta
         header = dict(request.headers)
         try:
             if header['Key'] != ROUTE_KEY:
@@ -57,17 +59,26 @@ class Payment(Resource):
         except KeyError:
             return gera_response(500, "payment", pay_info, "internal server error")
         
+        #Calcula o preço do envio
         pay_info['shipping_price'] = calculate_shipment_value(pay_info)
         
+        """
+        AQUI ENTRA A PRIMEIRA CHAMADA DA API DOS PRODUTOS
+        """
+
+        #Calcula o preço da compra
         pay_info['total'] = calculate_total(items=pay_info['products'], shipping_price=pay_info['shipping_price'])
 
+        #Gera o primeiro LOG
         log = GenerateLog()
         log_order = log.generate_log(order=pay_info)
 
+        #Verifica se o front mandou um status False (Talvez seja redundante no código, verificar se vale tirar)
         if log_order['status'] is False:
             pay_info['message'] = log_order['message']
             gera_response(500, "payment", pay_info, pay_info['message'])
 
+        #Verifica se o método de pagamento é válido. Caso não seja retorna o Except. Caso seja, chama as funções de pagar.
         try:
             if pay_info['method'] not in ["credit", "debit", "bill"]:
                 pay_info['message'] = "invalid pay method."
@@ -86,6 +97,15 @@ class Payment(Resource):
             pay_info['message'] = "pay method not informed."
             log.update_log(id_order=ObjectId(log_order['id_order']), order=pay_info)
             return gera_response(400, "payment", pay_info, pay_info['message'])
+
+        """
+        AQUI ENTRA A CHAMADA DA API DOS USERS
+        """
+
+        """
+        AQUI ENTRA A SEGUNDA CHAMADA DA API DOS PRODUTOS -> VENDA OK
+        """
+
 
         log.update_log(id_order=ObjectId(log_order['id_order']), order=pay_info)
         return gera_response(200, "payment", pay_info, pay_info['message'])
