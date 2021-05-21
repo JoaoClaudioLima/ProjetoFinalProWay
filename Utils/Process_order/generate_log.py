@@ -1,5 +1,4 @@
 from datetime import datetime
-from flask_restful import Resource
 from Controller.log_orders import LogOrders
 from bson import ObjectId
 
@@ -27,16 +26,3 @@ class GenerateLog:
         """
         result = LogOrders().put(log=order, id_order=id_order, updated_at=datetime.today())
         return result
-
-
-class GetLog(Resource):
-
-    @staticmethod
-    def get():
-        """
-        The method sends the entire LOG from the database.
-        :return:
-        """
-        result = LogOrders().get()
-        return result
-
