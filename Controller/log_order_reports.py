@@ -1,3 +1,4 @@
+import datetime
 from flask import request
 from flask_restful import Resource
 from Models.logDb import LogConnectionMongo
@@ -6,7 +7,13 @@ from Utils.gera_response import gera_response
 from Utils.Process_order.validate_date import validate_date
 
 
+LOG_GENERAL = 1
+LOG_BY_DATE = 2
+LOGS = [LOG_GENERAL, LOG_BY_DATE]
+
+
 class LogOrdersReports(Resource):
+    
     @staticmethod
     def post(search_type: int) -> dict:
         """
@@ -21,16 +28,16 @@ class LogOrdersReports(Resource):
         from_dt, to_dt = validate_date(initial_date=request_body["initial_date"],
                                        final_date=request_body["final_date"])
 
-        if search_type not in [1, 2]:
+        if search_type not in LOGS:
             return gera_response(400, "orders", request_body, "invalid search type.")
 
-        elif search_type == 1:
+        elif search_type == LOG_GENERAL:
             try:
                 result_list = list(LogConnectionMongo().log.find())
             except Exception as Error:
                 return gera_response(400, "orders", request_body, Error)
 
-        elif search_type == 2:
+        elif search_type == LOG_BY_DATE:
             try:
                 result_list = list(LogConnectionMongo().log.find({"created_at": {"$gte": from_dt, "$lte": to_dt}}))
                 for i in result_list:
