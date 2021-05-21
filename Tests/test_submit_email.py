@@ -1,6 +1,5 @@
 import json
 from unittest import mock, TestCase
-
 from Utils.SubmitEmail.submit_email import SubmitEmail
 
 
