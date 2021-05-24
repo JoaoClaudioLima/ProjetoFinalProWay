@@ -10,6 +10,7 @@ LOG_GENERAL = 1
 LOG_BY_DATE = 2
 LOGS = [LOG_GENERAL, LOG_BY_DATE]
 
+ROUTE_KEY = "eadc34b8d3d1463097e6df66dfabd462"
 
 class LogOrdersReports(Resource):
 
@@ -21,6 +22,13 @@ class LogOrdersReports(Resource):
         :return: Returns a JSON with all LOG data.
         If the search fails the return is an Exception with status and path message.
         """
+        header = dict(request.headers)
+        try:
+            if header['Key'] != ROUTE_KEY:
+                return gera_response(400, "payment", "invalid api-key")
+        except KeyError:
+            return gera_response(500, "payment", "internal server error")
+
         request_body = request.get_json()
         result_list = []
 
