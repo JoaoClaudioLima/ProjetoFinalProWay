@@ -5,7 +5,7 @@ from Utils.payments.update_pay_info import *
 class TestUpdatePayInfo(TestCase):
 
     @mock.patch("Utils.payments.update_pay_info.ObjectId")
-    @mock.patch("Utils.gera_response.gera_response")
+    @mock.patch("Utils.payments.update_pay_info.gera_response")
     @mock.patch("Utils.Process_order.generate_log.GenerateLog.update_log")
     @mock.patch("Utils.payments.update_pay_info.CheckProduct.check_products")
     @mock.patch("Utils.payments.update_pay_info.GetProduct.get_product")
