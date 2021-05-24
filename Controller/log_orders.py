@@ -21,22 +21,6 @@ class LogOrders(Resource):
             return dict(status=False, message=Error.args)
 
     @staticmethod
-    def get():
-        """
-        The method searches the entire LOG in JSON format.
-        :return: Returns a JSON with all LOG data.
-        If the search fails the return is an Exception with status and path message.
-        """
-
-        # O Gustavo disse que não precisava testar (leia em inglês)
-        try:
-            df = DataFrame(LogConnectionMongo().log.find())
-            df = df.astype(str)
-            return df.to_json(orient="records")
-        except Exception as Error:
-            return dict(status=False, message=Error.args)
-
-    @staticmethod
     def put(log: dict, id_order: ObjectId, updated_at: str):
         """
         The method updates the LOG in our database with the order data. Every action and any error is registered.
