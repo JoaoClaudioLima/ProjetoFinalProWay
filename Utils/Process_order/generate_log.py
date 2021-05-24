@@ -13,6 +13,7 @@ class GenerateLog:
         :return: Returns the data inserted into the LOG.
         """
 
+        print(order)
         log_order = dict(order=order, created_at=datetime.today())
         result = LogOrders().post(log_order=log_order)
         return result

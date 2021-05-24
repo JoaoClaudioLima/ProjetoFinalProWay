@@ -33,7 +33,9 @@ def receipt_generator(pay_info: dict, id_order: str):
     doc.client_info = ClientInfo(email=user_data["email"], name=f"{user_data['first_name']} {user_data['last_name']}", cpf=user_data["cpf"])
 
     for product in pay_info["products"]:
-        doc.add_item(Item(product["title"], product["item_quantity"], product["item_price"]))
+        doc.add_item(Item(product["title"], product["quantity_purchased"], product["item_price"]))
+
+    doc.set_item_tax_rate(pay_info["shipping_price"])
     doc.add_transaction(Transaction(pay_info["method"], id_order, datetime.now()))
     doc.finish()
 

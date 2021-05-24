@@ -14,7 +14,7 @@ def decrypt_user_data(user_id: str) -> dict:
     data = requests.get(f"http://192.168.0.74:5030/user/{user_id}",
                         headers=dict(Key="WADCAlhXPqJ4UL3JwO4fkhsAV8rIyE")).json()
     for d in data:
-        if d not in ["_id", "created_at", "date_of_birth", "email", "uploaded_at"]:
+        if d not in ["_id", "created_at", "date_of_birth", "email", "updated_at"]:
             data[d] = Fernet(key).decrypt(data[d].encode()).decode()
     return data
 
