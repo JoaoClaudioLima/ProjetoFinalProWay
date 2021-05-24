@@ -8,6 +8,9 @@ class CheckProduct:
         :return: bool.
         """
 
-        if get_product_info["products"]["stock"]:
-            return True
-        return False
+        try:
+            if get_product_info["stocks"]:
+                return True
+            return False
+        except:
+            return False
