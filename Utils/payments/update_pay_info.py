@@ -5,7 +5,7 @@ from Utils.Process_order.generate_log import GenerateLog
 from Utils.gera_response import gera_response
 
 
-def update_pay_info(pay_info: dict, log_order: dict) -> dict:
+def update_pay_info(pay_info: dict) -> dict:
     """
     this method updates pay_info with informations from API_Products of books,
     prices, stock, and if all books are digitals
@@ -24,5 +24,4 @@ def update_pay_info(pay_info: dict, log_order: dict) -> dict:
         return pay_info
     else:
         pay_info['message'] = "products out of stock."
-        GenerateLog().update_log(id_order=ObjectId(log_order['id_order']), order=pay_info)
-        return gera_response(400, "payment", pay_info, pay_info['message'])
+        return pay_info

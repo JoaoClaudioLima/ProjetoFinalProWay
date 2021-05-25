@@ -12,7 +12,7 @@ class GetProduct:
         """
 
         get_product_info = requests.get('http://192.168.0.82:5000/books/stock/verify',
-                                        headers={"access-key": "3b68f1bcc0af5dafeefb2b650f4f35b8"},
+                                        headers={"access-key": "3b68f1bcc0af5dafeefb2b650f4f35b8","Content-Type":"application/json"},
                                         json=pay_info_products).json()
 
         return get_product_info
@@ -28,5 +28,5 @@ class GetProduct:
 
         response = dict(shopping_car=pay_info_products, purchased=purchased)
         return requests.post('http://192.168.0.82:5000/books/purchase/finish',
-                             headers={"access-key": "3b68f1bcc0af5dafeefb2b650f4f35b8"},
+                             headers={"access-key": "3b68f1bcc0af5dafeefb2b650f4f35b8","Content-Type":"application/json"},
                              json=response).json()

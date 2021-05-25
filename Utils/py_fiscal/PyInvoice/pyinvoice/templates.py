@@ -241,7 +241,7 @@ class SimpleInvoice(SimpleDocTemplate):
             tax_total = None
 
         # Total
-        total = item_subtotal + (tax_total if tax_total else Decimal('0'))
+        total = float(item_subtotal) + float(tax_total)
         roundtotal = self.getroundeddecimal(total, self.precision)
         item_data.append(('Total', '', '', roundtotal))
         sum_start_y_index += 1

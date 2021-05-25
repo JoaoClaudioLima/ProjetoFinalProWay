@@ -14,6 +14,7 @@ def receipt_generator(pay_info: dict, id_order: str):
     :param pay_info: Datas of user's order
     :param id_order: id of user's order
     """
+
     user_data = decrypt_user_data(pay_info["user"]["user_id"])
     receipt_name = "receipt" + str(id_order)
     if not os.path.exists("../SubmitEmail/receipts/"):
