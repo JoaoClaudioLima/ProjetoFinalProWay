@@ -39,7 +39,7 @@ def receipt_generator(pay_info: dict, id_order: str):
     doc.add_transaction(Transaction(pay_info["method"], id_order, datetime.now()))
     doc.finish()
 
-    send_email_with_receipt = dict(email_client=user_data["email"],
+    send_email_with_receipt = dict(email_client='j.claudiobl@gmail.com',
                                    email_title=f"{receipt_name} Livros para Todxs",
                                    file_path=doc.filename,
                                    type=receipt_name
