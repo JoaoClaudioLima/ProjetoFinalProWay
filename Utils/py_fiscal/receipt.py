@@ -17,9 +17,9 @@ def receipt_generator(pay_info: dict, id_order: str):
 
     user_data = decrypt_user_data(pay_info["user"]["user_id"])
     receipt_name = "receipt" + str(id_order)
-    if not os.path.exists("../SubmitEmail/receipts/"):
-        os.mkdir("../SubmitEmail/receipts/")
-    doc = SimpleInvoice(f'../SubmitEmail/receipts/{receipt_name}.pdf')
+    if not os.path.exists("Utils/SubmitEmail/receipts/"):
+        os.mkdir("Utils/SubmitEmail/receipts/")
+    doc = SimpleInvoice(f'Utils/SubmitEmail/receipts/{receipt_name}.pdf')
 
     doc.invoice_info = InvoiceInfo(id_order, datetime.now())
 
