@@ -24,7 +24,7 @@ class SubmitEmail:
             filepath = order_data["file_path"]
             attachment = open(filepath, 'rb')
 
-            att = MIMEBase('application', 'octet-stream')
+            att = MIMEBase('application', 'pdf')
             att.set_payload(attachment.read())
             encoders.encode_base64(att)
             att.add_header('Content-Disposition', f'attachment; filename= {filename}')

@@ -13,7 +13,7 @@ def update_pay_info(pay_info: dict, log_order: dict) -> dict:
     :return: pay_info
     """
 
-    products_list = pay_info["checkout"]["products"]
+    products_list = pay_info["products"]
     get_product_info = GetProduct().get_product(products_list)
     if CheckProduct().check_products(get_product_info):
         book_list = get_product_info["books_stocks"]
