@@ -40,13 +40,14 @@ class LogOrdersReports(Resource):
 
         elif search_type == LOG_GENERAL:
             try:
-                result_list = list(LogConnectionMongo().log.find())
+                result_list = list(LogConnectionMongo().log.find({"created_at": {"$gte": from_dt, "$lte": to_dt}}))
             except Exception as Error:
                 return gera_response(400, "orders", request_body, Error)
 
         elif search_type == LOG_BY_DATE:
             try:
-                result_list = list(LogConnectionMongo().log.find({"created_at": {"$gte": from_dt, "$lte": to_dt}}))
+                result_list = list(LogConnectionMongo().log.find({"$and": [{"created_at": {"$gte": from_dt, "$lte": to_dt}},
+                                                                           {"order.status": "paid"}]}))
                 for i in result_list:
                     i['created_at'] = str(i['created_at'])
             except Exception as Error:
