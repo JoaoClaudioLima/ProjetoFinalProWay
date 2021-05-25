@@ -12,3 +12,7 @@ omit =
     Utils\bil_barcode\__init__.py
     Utils\shipment\__init__.py
     Utils\Process_order\__init__.py
+    Utils\Process_order\get_product.py
+    Utils\Process_order\check_product.py
+    venv\*
+    Utils\py_fiscal\*

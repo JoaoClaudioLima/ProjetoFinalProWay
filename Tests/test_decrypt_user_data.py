@@ -11,7 +11,7 @@ class TestDecryptUserData(TestCase):
                                             email="pedrinho@gmail.com",
                                             cpf="gAAAAABgppgE5DhLjjNdY0E_aWaGC8cuGaDBYrEc9Or3EuJ8Qim8e94X681W09oeFyx0H0fd8l78ttZmnL_0z4iOFb9A_53p3g==",
                                             created_at="Thu, 20 May 2021 14:10:28 GMT",
-                                            uploaded_at="Thu, 20 May 2021 14:10:28 GMT",
+                                            updated_at="Thu, 20 May 2021 14:10:28 GMT",
                                             first_name="gAAAAABgppgE6uwh38jLP2rrl7pjEZ5PTmj-zUHmFfNjSPMqS7vB6bdSL6e2lejfb5ptWPwVLt5hJdUClvRo5K7io3VxQPIT_w==",
                                             last_name="gAAAAABgppgEabrhrOue6r_-vL4mCmPDe1aBea_eeZq_RrVjM8fmGHGMorudP61DYTti-crUBbDbnKaQBB_o6V1-or_LV2pELA=="
                                             )
@@ -19,7 +19,7 @@ class TestDecryptUserData(TestCase):
                              email="pedrinho@gmail.com",
                              cpf="10215436258",
                              created_at="Thu, 20 May 2021 14:10:28 GMT",
-                             uploaded_at="Thu, 20 May 2021 14:10:28 GMT",
+                             updated_at="Thu, 20 May 2021 14:10:28 GMT",
                              first_name="Pedro",
                              last_name="Lele"
                              )

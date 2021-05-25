@@ -15,12 +15,12 @@ class TestReceipt(TestCase):
                     {
                         "title": "Livro 1",
                         "item_price": 10,
-                        "item_quantity": 1
+                        "quantity_purchased": 1
                     },
                     {
                         "title": "Livro 2",
                         "item_price": 5,
-                        "item_quantity": 2
+                        "quantity_purchased": 2
                     }
                 ],
                 "user": {
@@ -40,7 +40,8 @@ class TestReceipt(TestCase):
                     "month": "05",
                     "year": "2021",
                     "cvc": 336
-                }
+                },
+                "shipping_price": 20.0
             }
         mock_os.mkdir().return_value = True
         mock_simple = mock.MagicMock()
