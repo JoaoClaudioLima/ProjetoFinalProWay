@@ -19,7 +19,7 @@ def receipt_generator(pay_info: dict, id_order: str):
     receipt_name = "receipt" + str(id_order)
     if not os.path.exists("../SubmitEmail/receipts/"):
         os.mkdir("../SubmitEmail/receipts/")
-    doc = SimpleInvoice(f'receipts/{receipt_name}.pdf')
+    doc = SimpleInvoice(f'../SubmitEmail/receipts/{receipt_name}.pdf')
 
     doc.invoice_info = InvoiceInfo(id_order, datetime.now())
 
