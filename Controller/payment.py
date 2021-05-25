@@ -68,13 +68,16 @@ class Payment(Resource):
         if log_order['status'] is False:
             pay_info['message'] = log_order['message']
             gera_response(500, "payment", pay_info, pay_info['message'])
-        print(pay_info)
-        pay_info = update_pay_info(pay_info, log_order)
-        print(pay_info)
+
+        pay_info = update_pay_info(pay_info)
+        if 'message' in pay_info.keys():
+            if pay_info['message'] == "products out of stock.":
+                GenerateLog().update_log(id_order=ObjectId(log_order['id_order']), order=pay_info)
+                return gera_response(400, "payment", pay_info, pay_info['message'])
+
         pay_info['shipping_price'] = 0.0 if pay_info['digital_books'] else calculate_shipment_value(pay_info)
 
         pay_info['total'] = calculate_total(items=pay_info['products'], shipping_price=pay_info['shipping_price'])
-
         try:
             if pay_info['method'] not in ["credit", "debit", "bill"]:
                 pay_info['message'] = "invalid pay method."
@@ -91,14 +94,11 @@ class Payment(Resource):
                 pay_info['message'] = "ok"
                 log.update_log(id_order=ObjectId(log_order['id_order']), order=pay_info)
                 return gera_response(200, "payment", pay_info, pay_info['message'])
-
-
         except KeyError:
             pay_info['message'] = "pay method not informed."
             GetProduct().post_response(pay_info["products"], False)
             log.update_log(id_order=ObjectId(log_order['id_order']), order=pay_info)
             return gera_response(400, "payment", pay_info, pay_info['message'])
-
         receipt_generator(pay_info, log_order["id_order"])
         GetProduct().post_response(pay_info["products"], True)
         log.update_log(id_order=ObjectId(log_order['id_order']), order=pay_info)

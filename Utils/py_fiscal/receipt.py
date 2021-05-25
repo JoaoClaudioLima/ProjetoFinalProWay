@@ -14,11 +14,12 @@ def receipt_generator(pay_info: dict, id_order: str):
     :param pay_info: Datas of user's order
     :param id_order: id of user's order
     """
+
     user_data = decrypt_user_data(pay_info["user"]["user_id"])
     receipt_name = "receipt" + str(id_order)
     if not os.path.exists("../SubmitEmail/receipts/"):
         os.mkdir("../SubmitEmail/receipts/")
-    doc = SimpleInvoice(f'../SubmitEmail/receipts/{receipt_name}.pdf')
+    doc = SimpleInvoice(f'receipts/{receipt_name}.pdf')
 
     doc.invoice_info = InvoiceInfo(id_order, datetime.now())
 
@@ -39,7 +40,7 @@ def receipt_generator(pay_info: dict, id_order: str):
     doc.add_transaction(Transaction(pay_info["method"], id_order, datetime.now()))
     doc.finish()
 
-    send_email_with_receipt = dict(email_client='j.claudiobl@gmail.com',
+    send_email_with_receipt = dict(email_client=user_data["email"],
                                    email_title=f"{receipt_name} Livros para Todxs",
                                    file_path=doc.filename,
                                    type=receipt_name

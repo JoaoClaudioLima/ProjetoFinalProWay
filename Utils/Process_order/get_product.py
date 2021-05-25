@@ -11,11 +11,10 @@ class GetProduct:
         :return: A dictionary of products with its content.
         """
 
-        # print(pay_info_products)
         get_product_info = requests.get('http://192.168.0.82:5000/books/stock/verify',
                                         headers={"access-key": "3b68f1bcc0af5dafeefb2b650f4f35b8","Content-Type":"application/json"},
                                         json=pay_info_products).json()
-        print(get_product_info)
+
         return get_product_info
 
     def post_response(self, pay_info_products: list, purchased: bool) -> None:
