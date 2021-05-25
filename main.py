@@ -5,4 +5,4 @@ app = Flask(__name__)
 init_api(app)
 
 if __name__ == '__main__':
-    app.run(port=8000, host="192.168.0.70")
+    app.run(port=8000, host="192.168.0.80")
