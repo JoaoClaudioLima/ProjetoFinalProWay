@@ -1,0 +1,27 @@
+Status e Mensagens LOG:
+
+10 - Pedido recebido.
+11 - Compra realizada.
+20 - Boleto emitido.
+21 - Boleto pago.
+40 - Produto indisponível em estoque.
+41 - Dados do cartão inválidos.
+42 - Pagamento não autorizado.
+43 - Pagamento não realizado. (Boleto)
+44 - Limite de crédito insuficiente.
+45 - Limite de saldo insuficiente.
+46 - 
+50 - Conexão com API de Produtos não realizada.
+51 - Conexão com API de Usuário não realizada.
+60 - Erro interno do servidor.
+61 - Arquivos de envio não encontrados.
+62 - Arquivos de dado de cartão não encontrados.
+
+
+Código Sistema:
+
+1X - Sucesso;
+2X - Código de processo;
+4X - Erros de processo;
+5X - Erros de conexão;
+6X - Erros internos.

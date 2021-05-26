@@ -1,0 +1,18 @@
+[run]
+omit =
+    Models\__init__.py
+    Models\logDb.py
+    Controller/*
+    main.py
+    endpoints.py
+    __init__.py
+    Tests/*
+    Utils\__init__.py
+    Utils\payments\__init__.py
+    Utils\bil_barcode\__init__.py
+    Utils\shipment\__init__.py
+    Utils\Process_order\__init__.py
+    Utils\Process_order\get_product.py
+    Utils\Process_order\check_product.py
+    venv\*
+    Utils\py_fiscal\*
