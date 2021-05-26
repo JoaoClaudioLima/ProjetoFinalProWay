@@ -3,13 +3,13 @@ import datetime
 
 def validate_date(initial_date: str, final_date: str) -> tuple:
     if initial_date is None:
-        initial_date = datetime.datetime.strptime("2000-01-01 08:36:39.621017", "%Y-%m-%d %H:%M:%S.%f")
+        initial_date = datetime.datetime.strptime("2000-01-01", '%Y-%m-%d')
     else:
-        initial_date = datetime.datetime.strptime((f"{initial_date}"+" 00:00:00.621017"), '%Y-%m-%d %H:%M:%S.%f')
+        initial_date = datetime.datetime.strptime(initial_date, '%Y-%m-%d')
 
     if final_date is None:
-        final_date = datetime.datetime.today()
+        final_date = datetime.datetime.strptime(str(datetime.date.today()), '%Y-%m-%d')
     else:
-        final_date = datetime.datetime.strptime((f"{final_date}"+" 23:59:59.999999"), '%Y-%m-%d %H:%M:%S.%f')
+        final_date = datetime.datetime.strptime(final_date, '%Y-%m-%d')
 
     return initial_date, final_date

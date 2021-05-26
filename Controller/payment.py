@@ -28,7 +28,6 @@ def card_payment(log_order: dict, pay_info: dict):
 
     if not card_validation['status']:
         pay_info['message'] = card_validation['message']
-        pay_info['status'] = "not paid"
         GetProduct().post_response(pay_info["products"], False)
         log.update_log(id_order=ObjectId(log_order['id_order']), order=pay_info)
         return gera_response(400, "payment", pay_info, pay_info['message'])

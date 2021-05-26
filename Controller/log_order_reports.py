@@ -46,7 +46,8 @@ class LogOrdersReports(Resource):
 
         elif search_type == LOG_BY_DATE:
             try:
-                result_list = list(LogConnectionMongo().log.find({"$and": [{"created_at": {"$gte": from_dt, "$lte": to_dt}}, {"order.status": "paid"}]}))
+                result_list = list(LogConnectionMongo().log.find({"$and": [{"created_at": {"$gte": from_dt, "$lte": to_dt}},
+                                                                           {"order.status": "paid"}]}))
                 for i in result_list:
                     i['created_at'] = str(i['created_at'])
             except Exception as Error:
