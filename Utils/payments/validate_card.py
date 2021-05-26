@@ -16,13 +16,13 @@ def card_validating(card_info: dict) -> dict:
 
     if card.is_expired:
         return_status = False
-        return_msg = "card is expired"
+        return_msg = "Card is expired"
     elif not card.is_mod10_valid:
         return_status = False
-        return_msg = "card is not valid"
+        return_msg = "Card is not valid"
     else:
         return_status = True
-        return_msg = "card is valid"
+        return_msg = "Card is valid"
 
     card_info['brand'] = card.friendly_brand
 
