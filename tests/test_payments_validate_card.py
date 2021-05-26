@@ -9,21 +9,21 @@ class TestValidateCard(TestCase):
                          month="05",
                          year="2021",
                          cvc=336)
-        expected_return = {'message': 'Card is valid', 'status': True}
+        expected_return = {'message': 'card is valid', 'status': True}
         self.assertEqual(expected_return, card_validating(card_info=test_card))
 
         test_card = dict(number="5344604579207048",
                          month="05",
                          year="2021",
                          cvc=336)
-        expected_return = {'message': 'Card is not valid', 'status': False}
+        expected_return = {'message': 'card is not valid', 'status': False}
         self.assertEqual(expected_return, card_validating(card_info=test_card))
 
         test_card = dict(number="344604579207048",
                          month="04",
                          year="2021",
                          cvc=336)
-        expected_return = {'message': 'Card is expired', 'status': False}
+        expected_return = {'message': 'card is expired', 'status': False}
         self.assertEqual(expected_return, card_validating(card_info=test_card))
 
     def test_confirm_payment_works(self):
